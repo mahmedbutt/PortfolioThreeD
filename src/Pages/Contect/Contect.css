@@ -1,0 +1,33 @@
+.light .contect,.light .modal-body{
+    background-color: #eeeef0;
+    color: #000;
+}
+.light .contect_content{
+    background-color: #fff;
+}
+.dark .contect, .dark .modal-body{
+    background-color: #202020;
+    color: #fff;
+}
+.dark .contect_content{
+    background-color: #363535;
+}
+.contect_content h1{
+    font-weight: 700;
+}
+.social{
+    font-size:1.8rem;
+    margin-inline: 10px;
+}
+.contect_content input,.contect_content textarea{
+    border: 1px solid #D1D2D4;
+    background-color:#F5F5F7;
+    border-radius: 5px;
+}
+.contect__content button{
+    border-radius: 10px;
+    padding-inline:20px !important;
+}
+.contact__p{
+    color:#939598;
+}

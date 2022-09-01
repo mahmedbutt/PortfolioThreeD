@@ -1,0 +1,54 @@
+body {
+ 
+  margin: 0;
+  font-family: Inter,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;  
+}
+.modal-open{
+  padding-right:0 ;
+}
+
+a{
+  text-decoration:none !important;
+  color:unset !important;
+}
+
+/* code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */
+.navbar  {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0; /* required */
+  display: unset
+}
+@font-face {
+  font-family: 'Ibm plex mono';
+  src: url('https://assets.website-files.com/605739cf94ca6b3bfeae0833/61002974f9938d1a4a04f9d6_ibm-plex-mono-v6-latin-500.woff2') format('woff2'), url('https://assets.website-files.com/605739cf94ca6b3bfeae0833/61002974d552893694d0c411_ibm-plex-mono-v6-latin-500.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('https://assets.website-files.com/605739cf94ca6b3bfeae0833/610e5a81f7ff773290bd827c_inter-v3-latin-600.woff2') format('woff2'), url('https://assets.website-files.com/605739cf94ca6b3bfeae0833/610e5a8135ff85ed15e0129d_inter-v3-latin-600.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('https://assets.website-files.com/605739cf94ca6b3bfeae0833/610e5a817de9014cc3b59443_inter-v3-latin-500.woff2') format('woff2'), url('https://assets.website-files.com/605739cf94ca6b3bfeae0833/610e5a808461e57b774188fe_inter-v3-latin-500.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('https://assets.website-files.com/605739cf94ca6b3bfeae0833/610e5a810625e1731fb8af32_inter-v3-latin-regular.woff2') format('woff2'), url('https://assets.website-files.com/605739cf94ca6b3bfeae0833/610e5a8135ff85176ee0129e_inter-v3-latin-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

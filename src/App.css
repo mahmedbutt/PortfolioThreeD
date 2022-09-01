@@ -1,0 +1,23 @@
+.language{
+    position: fixed;
+    background-color: rgb(196, 196, 196);
+    padding: 10px 22px;
+    top: 540px;
+    right: 0;
+    border-radius: 11%;
+    border: none;
+    z-index: 100;
+}
+.language button{
+    border: none;
+    padding: 10px 20px;
+    width: 100%; 
+    margin: 5px;
+    border-radius: 11%;
+}
+.language button:hover{
+    background-color: darkgray
+}
+.App{
+    overflow-x: hidden;
+}

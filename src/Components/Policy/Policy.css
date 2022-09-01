@@ -1,0 +1,42 @@
+.light .policy {
+  background-color: #eeeef0;
+}
+.dark .policy{
+  background-color: #202020;
+}
+.light .heading,.light .sub_heading,.light h2,.light .li{
+color: black;
+}
+.dark .heading,.dark .sub_heading,.dark h2, .dark .linkColor{
+color: white;
+}
+.light .policy h2{
+    font-size: 3rem;
+    font-weight: 800;
+}
+.dark .policy h2{
+    font-size: 3rem;
+    font-weight: 800;
+}
+.heading {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+.sub_heading {
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding-bottom: 10px;
+}
+.light .content {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #57585a;
+}
+.dark .content {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #7b7c7f;
+}
+.dark hr{
+    color: #7b7c7f;
+}

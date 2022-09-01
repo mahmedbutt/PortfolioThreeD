@@ -1,0 +1,55 @@
+.light .work{
+    padding:20px;
+    background-color:#ffff;
+}
+.light .work h6{
+    background-color:lightgray;
+    color:darkgrey;
+    padding:10px 5px;
+    border-radius: 10px;
+}
+.light .work h1{
+    font-weight: bold;
+    font-size: 3rem;
+}
+.light .overflow-x{
+    overflow-x:scroll !important;
+    display: inline-block;
+    white-space:nowrap; 
+}
+.light .work-screenshot{
+    width: 70%;
+    margin-inline: 40px;
+
+}
+
+.AiFillCloseCircle{
+    color:rgb(194, 194, 194);
+    font-size:2rem;
+}
+
+.dark .work{
+    padding:20px;
+    background-color: #202020;
+}
+.dark .work h6{
+    background-color:lightgray;
+    color:darkgrey;
+    padding:10px 5px;
+    border-radius: 10px;
+}
+.dark .work h1{
+    font-weight: bold;
+    font-size: 3rem;
+    color:#fff;
+}
+.dark .overflow-x{
+    overflow-x:scroll !important;
+    display: inline-block;
+    white-space:nowrap; 
+}
+.dark .work-screenshot{
+    width: 70%;
+    margin-inline: 40px;
+
+}
