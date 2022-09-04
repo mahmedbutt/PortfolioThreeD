@@ -32,14 +32,14 @@ const Computer3DModel = () => {
     if (event.wheelDelta > 0) {
       gsap.to(camera.position, {
         z: 0,
-        duration: 1.5,
+        duration: 10,
         onUpdate: function () {
           camera.lookAt(0, 0, 0);
         },
       });
       gsap.to(camera.position, {
-        x: 0,
-        duration: 1.5,
+        x: 10,
+        duration: 10,
         onUpdate: function () {
           camera.lookAt(0, 0, 0);
         },
@@ -47,14 +47,14 @@ const Computer3DModel = () => {
     } else {
       gsap.to(camera.position, {
         z: 14,
-        duration: 1.5,
+        duration: 10,
         onUpdate: function () {
           camera.lookAt(0, 0, 0);
         },
       });
       gsap.to(camera.position, {
         x: -10,
-        duration: 1.5,
+        duration: 10,
         onUpdate: function () {
           camera.lookAt(0, 0, 0);
         },
@@ -103,12 +103,13 @@ const Computer3DModel = () => {
       parseModel();
     });
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
     renderer.outputEncoding = THREE.sRGBEncoding;
+    console.log(renderer.domElement);
     threeDSpaceContainerRef.current.appendChild(renderer.domElement);
 
     render();
@@ -135,16 +136,12 @@ const Computer3DModel = () => {
     function render() {
       requestAnimationFrame(render);
       renderer.render(scene, camera);
-
-      // controls.update();
     }
   }, []);
 
   return (
     <div
       style={{
-        // width: "100vw",
-        // height: "50vh",
         border: "4px solid black",
         position: "relative",
       }}
