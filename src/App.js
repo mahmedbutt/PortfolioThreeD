@@ -69,7 +69,6 @@ function App() {
 
           {/* this is default link used whenever other path is add. */}
           <Route path="*" element={<Navigate to="/" replace />} />
-          <Route path="/space" element={<Computer3DModel />} />
         </Routes>
         <Footer lang={lang} theme={theme} />
       </BrowserRouter>

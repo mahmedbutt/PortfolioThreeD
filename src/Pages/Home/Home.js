@@ -59,11 +59,6 @@ function Home({ lang, theme }) {
   };
   return (
     <>
-      <div ref={threeDSpaceContainerRef}>
-        <Computer3DModel
-          threeDSpaceContainerRef={threeDSpaceContainerRef}
-        ></Computer3DModel>
-      </div>
       <Contect lang={lang} theme={theme} modal={modal} toggle={toggle} />
       <WorkA lang={lang} theme={theme} modal={modalA} toggle={toggleA} />
       <WorkB lang={lang} theme={theme} modal={modalB} toggle={toggleB} />
@@ -75,6 +70,11 @@ function Home({ lang, theme }) {
             <div className="col-lg-12 pb-3 d-flex justify-content-center">
               {/* Removing / for github only  */}
               {/* <img src="/homePage.png" width="320" alt="home.png" /> */}
+              {/* <div ref={threeDSpaceContainerRef}> */}
+              <Computer3DModel
+                threeDSpaceContainerRef={threeDSpaceContainerRef}
+              ></Computer3DModel>
+              {/* </div> */}
             </div>
             <div className="col-lg-12 d-flex justify-content-center">
               {lang ? (
