@@ -13,7 +13,7 @@ import WorkD from "../Work/WorkD/WorkD";
 import TiltPhaseSix from "../../Components/TiltPhoseSix/TiltPhaseSix";
 import Computer3DModel from "../Computer3DModel/Computer3DModel";
 
-function Home({ lang, theme, props }) {
+function Home({ lang, theme, setAnimationState }) {
   const location = useLocation();
   const threeDSpaceContainerRef = useRef();
 
@@ -23,6 +23,10 @@ function Home({ lang, theme, props }) {
       document.getElementById("element").scrollIntoView({ behavior: "smooth" });
     }
   }, [location.hash]);
+
+  const animationState = (value) => {
+    setAnimationState(value);
+  };
   // thse useRef are used for scroll effect.
   const [ref, inView] = useInView({ threshold: 0.5 });
   const [ref2, inView2] = useInView({ threshold: 0.5 });
@@ -69,6 +73,8 @@ function Home({ lang, theme, props }) {
           <div>
             <div ref={threeDSpaceContainerRef}>
               <Computer3DModel
+                theme={theme}
+                setAnimationState={animationState}
                 threeDSpaceContainerRef={threeDSpaceContainerRef}
               ></Computer3DModel>
             </div>

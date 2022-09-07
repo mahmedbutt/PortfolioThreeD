@@ -7,7 +7,7 @@
 }
 
 .percent {
-  background-image: linear-gradient(to left, #271e43 45%, #211311);
+  /* background-image: linear-gradient(to left, #271e43 45%, #211311); */
   color: white;
   font-size: 35px;
   font-weight: bolder;
@@ -23,7 +23,7 @@
   display: flex;
   position: absolute;
   flex-direction: column;
-  background: linear-gradient(to right, #ffffff, #e1d0cb);
+  /* background: linear-gradient(to right, #ffffff, #e1d0cb); */
 }
 
 .heading h1 {

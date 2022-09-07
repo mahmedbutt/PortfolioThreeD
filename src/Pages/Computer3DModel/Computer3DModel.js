@@ -1,13 +1,19 @@
 import * as THREE from "three";
-import React from "react";
+import React, { useState } from "react";
 import { gsap } from "gsap";
 // import GUI from "lil-gui";
 import { useEffect, useRef } from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { propTypes } from "react-bootstrap/esm/Image";
+import { init } from "@emailjs/browser";
 
-const Computer3DModel = () => {
+const Computer3DModel = (props) => {
   const threeDSpaceContainerRef = useRef();
+  // const [ref, setRef] = useState(true);
+  // const ref = useRef();
+  // const sceneref = useRef();
+
   let scene;
   let camera;
   let light;
@@ -19,47 +25,55 @@ const Computer3DModel = () => {
   let screenVector = new THREE.Vector3();
   let screenBoundingBox = new THREE.Box3();
 
-  function parseModel() {
-    screenBoundingBox.getCenter(screenVector);
-    // console.log(screenVector);
-  }
+  // function init() {
+  //   if (!props.theme) {
+  //     debugger;
+  //     sceneref.current.background.set(0x202020);
+  //   } else if (props.theme) {
+  //     sceneref.current.background.set(0xf6d4b1);
+  //   }
+  // }
 
   function modelAnimation(event) {
-    if (event.wheelDelta > 0 && event.wheelDelta < 10) {
-      gsap.to(camera.position, {
-        z: 0,
-        duration: 10,
-        onUpdate: function () {
-          camera.lookAt(0, 0, 0);
-        },
-      });
-      gsap.to(camera.position, {
-        x: 10,
-        duration: 10,
-        onUpdate: function () {
-          camera.lookAt(0, 0, 0);
-        },
-      });
-    } else if (event.wheelDelta < 0 && event.wheelDelta > -10) {
-      gsap.to(camera.position, {
-        z: 14,
-        duration: 10,
-        onUpdate: function () {
-          camera.lookAt(0, 0, 0);
-        },
-      });
-      gsap.to(camera.position, {
-        x: -10,
-        duration: 10,
-        onUpdate: function () {
-          camera.lookAt(0, 0, 0);
-        },
-      });
-    }
+    // if (event.wheelDelta > 0 && event.wheelDelta < 10) {
+    // gsap.to(camera.position, {
+    //   z: 0,
+    //   duration: 10,
+    //   onUpdate: function () {
+    //     camera.lookAt(0, 0, 0);
+    //   },
+    // });
+    // gsap.to(camera.position, {
+    //   x: 10,
+    //   duration: 10,
+    //   onUpdate: function () {
+    //     camera.lookAt(0, 0, 0);
+    //   },
+    // });
+    // } else if (event.wheelDelta < 0 && event.wheelDelta > -10) {
+    gsap.to(camera.position, {
+      z: 14,
+      duration: 10,
+      onUpdate: function () {
+        camera.lookAt(0, 0, 0);
+      },
+    });
+    gsap.to(camera.position, {
+      x: -10,
+      duration: 10,
+      onUpdate: function () {
+        camera.lookAt(0, 0, 0);
+      },
+    });
+    // props.setAnimationState(false);
+
+    // }
   }
+  // console.log(props.theme);
 
   useEffect(() => {
     scene = new THREE.Scene();
+    // sceneref.current = scene;
     scene.background = new THREE.Color(0xf6d4b1);
 
     camera = new THREE.PerspectiveCamera(
@@ -85,7 +99,7 @@ const Computer3DModel = () => {
     // const gui = new GUI();
     // gui.add(guiFunc, "camPos").name("Position");
 
-    // console.log(screenBoundingBox);
+    console.log(screenBoundingBox);
     // camera.position.set(screenVector);
 
     const bbox = new THREE.Box3Helper(screenBoundingBox);
@@ -102,15 +116,14 @@ const Computer3DModel = () => {
         if (obj instanceof THREE.Mesh) {
           if (obj.name.toLowerCase().includes("mesh_0")) {
             screenMesh = obj;
-            // obj.updateWorldMatrix(false, true);
-            // obj.geometry.computeBoundingBox();
-            screenBoundingBox.setFromObject(obj, true);
+            screenBoundingBox.setFromObject(screenMesh, true);
+            screenBoundingBox.getCenter(screenVector);
           }
         }
       });
     });
 
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -119,6 +132,7 @@ const Computer3DModel = () => {
     console.log(renderer.domElement);
     threeDSpaceContainerRef.current.appendChild(renderer.domElement);
 
+    init();
     render();
 
     // controls = new OrbitControls(camera, renderer.domElement);

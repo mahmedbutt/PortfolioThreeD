@@ -57,7 +57,7 @@ function App() {
             path="/"
             element={
               <Home
-                setAnimationVal={setAnimationVal}
+                setAnimationState={setAnimationVal}
                 lang={lang}
                 theme={theme}
               />
