@@ -15,6 +15,7 @@ function App() {
   const [lang, setLang] = useState(true);
   const [theme, setTheme] = useState(true);
   const [isOpen, setIsopen] = useState(false);
+  const [threeAnimation, setAnimationVal] = useState(true);
 
   return (
     // This is the small panel use to change the language and theme.
@@ -50,9 +51,18 @@ function App() {
       </div>
       {/* this is react router dom by which we can give our component link. */}
       <BrowserRouter>
-        <Header lang={lang} theme={theme} />
+        {!threeAnimation ? <Header lang={lang} theme={theme} /> : <></>}
         <Routes>
-          <Route path="/" element={<Home lang={lang} theme={theme} />} />
+          <Route
+            path="/"
+            element={
+              <Home
+                setAnimationVal={setAnimationVal}
+                lang={lang}
+                theme={theme}
+              />
+            }
+          />
           <Route
             path="/reason"
             element={<Reasons lang={lang} theme={theme} />}
@@ -70,7 +80,7 @@ function App() {
           {/* this is default link used whenever other path is add. */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-        <Footer lang={lang} theme={theme} />
+        {!threeAnimation ? <Footer lang={lang} theme={theme} /> : <></>}
       </BrowserRouter>
     </div>
   );

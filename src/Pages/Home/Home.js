@@ -13,7 +13,7 @@ import WorkD from "../Work/WorkD/WorkD";
 import TiltPhaseSix from "../../Components/TiltPhoseSix/TiltPhaseSix";
 import Computer3DModel from "../Computer3DModel/Computer3DModel";
 
-function Home({ lang, theme }) {
+function Home({ lang, theme, props }) {
   const location = useLocation();
   const threeDSpaceContainerRef = useRef();
 
@@ -66,15 +66,11 @@ function Home({ lang, theme }) {
       <WorkD lang={lang} theme={theme} modal={modalD} toggle={toggleD} />
       <div className={`${theme ? "light" : "dark"}`} id="element">
         <div className={`container-fluid home`}>
-          <div className="row home-content d-flex justify-content-center">
-            <div className="col-lg-12 pb-3 d-flex justify-content-center">
-              {/* Removing / for github only  */}
-              {/* <img src="/homePage.png" width="320" alt="home.png" /> */}
-              <div ref={threeDSpaceContainerRef}>
-                <Computer3DModel
-                  threeDSpaceContainerRef={threeDSpaceContainerRef}
-                ></Computer3DModel>
-              </div>
+          <div>
+            <div ref={threeDSpaceContainerRef}>
+              <Computer3DModel
+                threeDSpaceContainerRef={threeDSpaceContainerRef}
+              ></Computer3DModel>
             </div>
             <div className="col-lg-12 d-flex justify-content-center">
               {lang ? (

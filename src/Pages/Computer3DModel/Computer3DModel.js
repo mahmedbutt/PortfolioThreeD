@@ -13,23 +13,19 @@ const Computer3DModel = () => {
   let light;
   let pointLight;
   let model;
+  let screenMesh;
   let renderer;
   let controls;
   let screenVector = new THREE.Vector3();
   let screenBoundingBox = new THREE.Box3();
 
   function parseModel() {
-    model.traverse(function (obj) {
-      if (obj.name.toLowerCase().includes("mesh_0")) {
-        screenBoundingBox.setFromObject(obj, true);
-      }
-    });
     screenBoundingBox.getCenter(screenVector);
     // console.log(screenVector);
   }
 
   function modelAnimation(event) {
-    if (event.wheelDelta > 0) {
+    if (event.wheelDelta > 0 && event.wheelDelta < 10) {
       gsap.to(camera.position, {
         z: 0,
         duration: 10,
@@ -44,7 +40,7 @@ const Computer3DModel = () => {
           camera.lookAt(0, 0, 0);
         },
       });
-    } else {
+    } else if (event.wheelDelta < 0 && event.wheelDelta > -10) {
       gsap.to(camera.position, {
         z: 14,
         duration: 10,
@@ -89,10 +85,11 @@ const Computer3DModel = () => {
     // const gui = new GUI();
     // gui.add(guiFunc, "camPos").name("Position");
 
+    // console.log(screenBoundingBox);
     // camera.position.set(screenVector);
 
-    // const bbox = new THREE.Box3Helper(screenBoundingBox);
-    // scene.add(bbox);
+    const bbox = new THREE.Box3Helper(screenBoundingBox);
+    scene.add(bbox);
 
     const path = "modelComputer.glb";
 
@@ -100,7 +97,17 @@ const Computer3DModel = () => {
     loader.load(path, function (gltf) {
       model = gltf.scene;
       scene.add(model);
-      parseModel();
+      // parseModel();
+      model.traverse(function (obj) {
+        if (obj instanceof THREE.Mesh) {
+          if (obj.name.toLowerCase().includes("mesh_0")) {
+            screenMesh = obj;
+            // obj.updateWorldMatrix(false, true);
+            // obj.geometry.computeBoundingBox();
+            screenBoundingBox.setFromObject(obj, true);
+          }
+        }
+      });
     });
 
     renderer = new THREE.WebGLRenderer();
@@ -114,15 +121,15 @@ const Computer3DModel = () => {
 
     render();
 
-    controls = new OrbitControls(camera, renderer.domElement);
-    controls.minDistance = 2;
-    controls.maxDistance = 10;
-    controls.target.set(0, 0, -0.2);
-    controls.update();
+    // controls = new OrbitControls(camera, renderer.domElement);
+    // controls.minDistance = 2;
+    // controls.maxDistance = 10;
+    // controls.target.set(0, 0, -0.2);
+    // controls.update();
 
     window.addEventListener("resize", onWindowResize);
 
-    // window.addEventListener("wheel", modelAnimation);
+    window.addEventListener("wheel", modelAnimation);
 
     function onWindowResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -139,16 +146,7 @@ const Computer3DModel = () => {
     }
   }, []);
 
-  return (
-    <div
-      style={{
-        border: "4px solid black",
-        position: "relative",
-      }}
-      ref={threeDSpaceContainerRef}
-      id="gui"
-    ></div>
-  );
+  return <div ref={threeDSpaceContainerRef} id="gui"></div>;
 };
 
 export default Computer3DModel;
