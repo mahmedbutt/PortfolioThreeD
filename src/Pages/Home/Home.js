@@ -12,10 +12,12 @@ import WorkC from "../Work/WorkC/WorkC";
 import WorkD from "../Work/WorkD/WorkD";
 import TiltPhaseSix from "../../Components/TiltPhoseSix/TiltPhaseSix";
 import Computer3DModel from "../Computer3DModel/Computer3DModel";
+import LoadingScreen from "../LoadingScreen/LoadingScreen";
 
 function Home({ lang, theme, setAnimationState }) {
   const location = useLocation();
   const threeDSpaceContainerRef = useRef();
+  const [loading, setLoading] = useState(true);
 
   // this function is used to send page on top
   useEffect(() => {
@@ -23,6 +25,10 @@ function Home({ lang, theme, setAnimationState }) {
       document.getElementById("element").scrollIntoView({ behavior: "smooth" });
     }
   }, [location.hash]);
+
+  const loadingState = (value) => {
+    setLoading(value);
+  };
 
   const animationState = (value) => {
     setAnimationState(value);
@@ -72,12 +78,15 @@ function Home({ lang, theme, setAnimationState }) {
         <div className={`container-fluid home`}>
           <div>
             <div ref={threeDSpaceContainerRef}>
+              {loading && <LoadingScreen />}
               <Computer3DModel
+                setLoading={loadingState}
                 theme={theme}
                 setAnimationState={animationState}
                 threeDSpaceContainerRef={threeDSpaceContainerRef}
               ></Computer3DModel>
             </div>
+
             <div className="col-lg-12 d-flex justify-content-center">
               {lang ? (
                 <h4 className="bold">Miguel González</h4>

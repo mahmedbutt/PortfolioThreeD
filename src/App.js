@@ -10,6 +10,7 @@ import Policy from "./Components/Policy/Policy";
 import Cookie from "./Components/Cookie/Cookie";
 import Legal from "./Components/Legal/Legal";
 import Computer3DModel from "./Pages/Computer3DModel/Computer3DModel";
+import LoadingScreen from "./Pages/LoadingScreen/LoadingScreen";
 function App() {
   // these varible use to change language, theme and open small tool panekl
   const [lang, setLang] = useState(true);
@@ -76,6 +77,7 @@ function App() {
             element={<Cookie lang={lang} theme={theme} />}
           />
           <Route path="/legal" element={<Legal lang={lang} theme={theme} />} />
+          {/* <Route path="/temp" element={<LoadingScreen />} /> */}
 
           {/* this is default link used whenever other path is add. */}
           <Route path="*" element={<Navigate to="/" replace />} />

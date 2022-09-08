@@ -10,9 +10,9 @@ import { init } from "@emailjs/browser";
 
 const Computer3DModel = (props) => {
   const threeDSpaceContainerRef = useRef();
-  // const [ref, setRef] = useState(true);
-  // const ref = useRef();
-  // const sceneref = useRef();
+  // const [ref, setRef] = useState(props.theme);
+  const ref = useRef();
+  const sceneref = useRef();
 
   let scene;
   let camera;
@@ -25,14 +25,17 @@ const Computer3DModel = (props) => {
   let screenVector = new THREE.Vector3();
   let screenBoundingBox = new THREE.Box3();
 
-  // function init() {
-  //   if (!props.theme) {
-  //     debugger;
-  //     sceneref.current.background.set(0x202020);
-  //   } else if (props.theme) {
-  //     sceneref.current.background.set(0xf6d4b1);
-  //   }
-  // }
+  ref.current = props.theme;
+
+  function setTheme(value) {
+    // if (!value) {
+    //   sceneref.current.background.set(0x202020);
+    // } else {
+    //   sceneref.current.background.set(0xf6d4b1);
+    // }
+    // console.log(value, "val");
+    console.log(sceneref.current);
+  }
 
   function modelAnimation(event) {
     // if (event.wheelDelta > 0 && event.wheelDelta < 10) {
@@ -65,16 +68,26 @@ const Computer3DModel = (props) => {
         camera.lookAt(0, 0, 0);
       },
     });
-    // props.setAnimationState(false);
+    props.setAnimationState(false);
 
     // }
   }
-  // console.log(props.theme);
+
+  useEffect(() => {
+    setTheme(ref.current);
+  }, [ref.current]);
 
   useEffect(() => {
     scene = new THREE.Scene();
-    // sceneref.current = scene;
     scene.background = new THREE.Color(0xf6d4b1);
+    sceneref.current = scene;
+
+    // if (!ref.current) {
+
+    //   scene.background.setHex(0x202020);
+    // } else {
+    //   scene.background.setHex(0xf6d4b1);
+    // }
 
     camera = new THREE.PerspectiveCamera(
       70,
@@ -99,7 +112,8 @@ const Computer3DModel = (props) => {
     // const gui = new GUI();
     // gui.add(guiFunc, "camPos").name("Position");
 
-    console.log(screenBoundingBox);
+    // console.log(screenBoundingBox);
+    // console.log(ref.current);
     // camera.position.set(screenVector);
 
     const bbox = new THREE.Box3Helper(screenBoundingBox);
@@ -111,7 +125,6 @@ const Computer3DModel = (props) => {
     loader.load(path, function (gltf) {
       model = gltf.scene;
       scene.add(model);
-      // parseModel();
       model.traverse(function (obj) {
         if (obj instanceof THREE.Mesh) {
           if (obj.name.toLowerCase().includes("mesh_0")) {
@@ -123,13 +136,16 @@ const Computer3DModel = (props) => {
       });
     });
 
+    setTimeout(function () {
+      props.setLoading(false);
+    }, 3000);
+
     renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
     renderer.outputEncoding = THREE.sRGBEncoding;
-    console.log(renderer.domElement);
     threeDSpaceContainerRef.current.appendChild(renderer.domElement);
 
     init();
