@@ -23,78 +23,56 @@ const Computer3DModel = (props) => {
   let renderer;
   let controls;
   let screenVector = new THREE.Vector3();
-  let screenBoundingBox = new THREE.Box3();
 
   ref.current = props.theme;
 
   function setTheme(value) {
-    // if (!value) {
-    //   sceneref.current.background.set(0x202020);
-    // } else {
-    //   sceneref.current.background.set(0xf6d4b1);
-    // }
-    // console.log(value, "val");
-    console.log(sceneref.current);
+    if (!value) {
+      sceneref.current.background.set(0x202020);
+    } else {
+      sceneref.current.background.set(0xf6d4b1);
+    }
   }
 
   function modelAnimation(event) {
-    // if (event.wheelDelta > 0 && event.wheelDelta < 10) {
-    // gsap.to(camera.position, {
-    //   z: 0,
-    //   duration: 10,
-    //   onUpdate: function () {
-    //     camera.lookAt(0, 0, 0);
-    //   },
-    // });
-    // gsap.to(camera.position, {
-    //   x: 10,
-    //   duration: 10,
-    //   onUpdate: function () {
-    //     camera.lookAt(0, 0, 0);
-    //   },
-    // });
-    // } else if (event.wheelDelta < 0 && event.wheelDelta > -10) {
-    gsap.to(camera.position, {
-      z: 14,
-      duration: 10,
-      onUpdate: function () {
-        camera.lookAt(0, 0, 0);
-      },
-    });
-    gsap.to(camera.position, {
-      x: -10,
-      duration: 10,
-      onUpdate: function () {
-        camera.lookAt(0, 0, 0);
-      },
-    });
-    props.setAnimationState(false);
-
-    // }
+    if (event.wheelDelta > 0) {
+      gsap.to(model.rotation, {
+        y: 0,
+        duration: 1,
+      });
+      gsap.to(camera.position, {
+        z: 0,
+        duration: 2,
+        onComplete: () => {
+          props.setAnimationState(true);
+        },
+      });
+    } else if (event.wheelDelta < 0) {
+      gsap.to(model.rotation, {
+        y: 1,
+        duration: 2,
+        onComplete: () => {
+          props.setAnimationState(false);
+        },
+      });
+      gsap.to(camera.position, {
+        z: 8,
+        duration: 5,
+      });
+    }
   }
-
-  useEffect(() => {
-    setTheme(ref.current);
-  }, [ref.current]);
 
   useEffect(() => {
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf6d4b1);
     sceneref.current = scene;
 
-    // if (!ref.current) {
-
-    //   scene.background.setHex(0x202020);
-    // } else {
-    //   scene.background.setHex(0xf6d4b1);
-    // }
-
     camera = new THREE.PerspectiveCamera(
       70,
       window.innerWidth / window.innerHeight
     );
     scene.add(camera);
-    camera.position.set(0, 1, 1);
+    // camera.position.set(0, 1, 1);
 
     light = new THREE.AmbientLight(0x404040); // soft white light
     scene.add(light);
@@ -102,22 +80,6 @@ const Computer3DModel = (props) => {
     pointLight.position.set(1.5, 8, 0.5);
     pointLight.intensity = 2;
     scene.add(pointLight);
-
-    // const guiFunc = {
-    //   camPos: () => {
-    //     console.log(camera.position);
-    //   },
-    // };
-
-    // const gui = new GUI();
-    // gui.add(guiFunc, "camPos").name("Position");
-
-    // console.log(screenBoundingBox);
-    // console.log(ref.current);
-    // camera.position.set(screenVector);
-
-    const bbox = new THREE.Box3Helper(screenBoundingBox);
-    scene.add(bbox);
 
     const path = "modelComputer.glb";
 
@@ -129,8 +91,18 @@ const Computer3DModel = (props) => {
         if (obj instanceof THREE.Mesh) {
           if (obj.name.toLowerCase().includes("mesh_0")) {
             screenMesh = obj;
-            screenBoundingBox.setFromObject(screenMesh, true);
-            screenBoundingBox.getCenter(screenVector);
+            screenMesh.getWorldPosition(screenVector);
+            var boundingBox = new THREE.Box3();
+            var mesh = screenMesh;
+            mesh.updateMatrixWorld(true);
+            boundingBox.copy(mesh.geometry.boundingBox);
+            boundingBox.applyMatrix4(mesh.matrixWorld);
+            boundingBox.getCenter(screenVector);
+            camera.position.set(
+              screenVector.x,
+              screenVector.y,
+              screenVector.z + 1.5
+            );
           }
         }
       });
@@ -152,9 +124,6 @@ const Computer3DModel = (props) => {
     render();
 
     // controls = new OrbitControls(camera, renderer.domElement);
-    // controls.minDistance = 2;
-    // controls.maxDistance = 10;
-    // controls.target.set(0, 0, -0.2);
     // controls.update();
 
     window.addEventListener("resize", onWindowResize);
@@ -176,7 +145,13 @@ const Computer3DModel = (props) => {
     }
   }, []);
 
-  return <div ref={threeDSpaceContainerRef} id="gui"></div>;
+  useEffect(() => {
+    setTheme(ref.current);
+  }, [ref.current]);
+
+  return (
+    <div style={{ width: 100 }} ref={threeDSpaceContainerRef} id="gui"></div>
+  );
 };
 
 export default Computer3DModel;

@@ -69,6 +69,8 @@ function Home({ lang, theme, setAnimationState }) {
   };
   return (
     <>
+      {loading && <LoadingScreen />}
+
       <Contect lang={lang} theme={theme} modal={modal} toggle={toggle} />
       <WorkA lang={lang} theme={theme} modal={modalA} toggle={toggleA} />
       <WorkB lang={lang} theme={theme} modal={modalB} toggle={toggleB} />
@@ -78,7 +80,6 @@ function Home({ lang, theme, setAnimationState }) {
         <div className={`container-fluid home`}>
           <div>
             <div ref={threeDSpaceContainerRef}>
-              {loading && <LoadingScreen />}
               <Computer3DModel
                 setLoading={loadingState}
                 theme={theme}

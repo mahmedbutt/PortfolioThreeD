@@ -5,6 +5,7 @@ function LoadingScreen() {
   return (
     <div id="root">
       <div className="loader-wrapper">
+        <h1>Booting...</h1>
         <div className="loader"></div>
       </div>
     </div>
